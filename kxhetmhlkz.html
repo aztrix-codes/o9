@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attendance App</title>
+  <style>
+    /* Global styles */
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #121212; /* AMOLED dark theme */
+      color: #e0e0e0; /* Light gray text for better contrast */
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Container for the button and progress bar */
+    .container {
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+      width: 80%;
+      max-width: 400px;
+    }
+
+    /* Keyframes for fade-in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Button styles */
+    .download-button {
+      background-color: #1e1e1e;
+      color: #10ACE5; /* Bright cyan */
+      border: 2px solid #10ACE5;
+      padding: 15px 35px;
+      font-size: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .download-button:hover {
+      background-color: #10ACE5;
+      color: #121212; /* Dark background on hover */
+      transform: translateY(-3px); /* Slight lift on hover */
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .download-button:active {
+      transform: translateY(2px); /* Button slightly pressed on click */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .download-button:focus {
+      outline: none;
+      box-shadow: 0 0 10px #10ACE5;
+    }
+
+    /* Progress bar container */
+    .progress-container {
+      display: none;
+      width: 100%;
+      background-color: #333;
+      height: 8px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background-color: #10ACE5;
+      border-radius: 4px;
+      transition: width 0.2s ease;
+    }
+
+    /* Loading text */
+    .loading-text {
+      color: #10ACE5;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Download Your APK</h1>
+    <button class="download-button" onclick="startDownload()">Download APK</button>
+
+    <!-- Progress Bar Container -->
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <p class="loading-text" id="loadingText" style="display: none;">Downloading... 0%</p>
+    <p>Note: iOS version coming soon...</p>
+  </div>
+
+  <script>
+    // Simulate the download process with a progress bar
+    function startDownload() {
+      const progressBar = document.getElementById('progressBar');
+      const progressContainer = document.getElementById('progressContainer');
+      const loadingText = document.getElementById('loadingText');
+
+      // Show progress bar and loading text
+      progressContainer.style.display = 'block';
+      loadingText.style.display = 'block';
+
+      let progress = 0;
+
+      // Simulate download by incrementing the progress
+      const downloadInterval = setInterval(() => {
+        if (progress >= 100) {
+          clearInterval(downloadInterval);
+          // When download completes, trigger the actual download
+          triggerDownload();
+          loadingText.innerHTML = 'Download Complete!';
+        } else {
+          progress += 2; // Increment progress by 2%
+          progressBar.style.width = progress + '%';
+          loadingText.innerHTML = 'Downloading... ' + progress + '%';
+        }
+      }, 100); // Update every 100ms to simulate download progress
+    }
+
+    // Function to actually trigger the download after progress simulation
+    function triggerDownload() {
+      const element = document.createElement('a');
+      element.href = './apps/Student.apk';  // Replace with your actual APK file path
+      element.download = 'Student.apk'; // Name of the downloaded file
+      element.click(); // Programmatically click the link to trigger download
+    }
+  </script>
+
+</body>
+</html>
