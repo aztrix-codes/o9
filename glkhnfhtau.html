@@ -131,11 +131,11 @@
           clearInterval(downloadInterval);
           // When download completes, trigger the actual download
           triggerDownload();
-          loadingText.innerHTML = 'Download Complete!';
+          loadingText.innerHTML = 'Ready!';
         } else {
           progress += 2; // Increment progress by 2%
           progressBar.style.width = progress + '%';
-          loadingText.innerHTML = 'Downloading... ' + progress + '%';
+          loadingText.innerHTML = 'Loading... ' + progress + '%';
         }
       }, 100); // Update every 100ms to simulate download progress
     }
